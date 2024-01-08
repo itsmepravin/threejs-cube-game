@@ -47,17 +47,23 @@
       const controls = new OrbitControls(camera, renderer.domElement);
 
       class Box extends THREE.Mesh {
-        constructor() {
+        constructor({ width, height, depth }) {
           super(
-            new THREE.BoxGeometry(1, 1, 1),
+            new THREE.BoxGeometry(width, height, depth),
             new THREE.MeshStandardMaterial({ color: 0x00ff00 })
           );
 
-          this.height = 3;
+          this.width = width;
+          this.height = height;
+          this.depth = depth;
         }
       }
 
-      const cube = new Box();
+      const cube = new Box({
+        width: 1,
+        height: 1,
+        depth: 1,
+      });
       cube.castShadow = true;
       scene.add(cube);
 
@@ -81,7 +87,8 @@
       function animate() {
         requestAnimationFrame(animate);
         renderer.render(scene, camera);
-        cube.position.y += -0.01;
+        // console.log(cube.position.y - cube.height / 2);
+        // cube.position.y += -0.01;
         // cube.rotation.x += 0.01;
         // cube.rotation.y += 0.01;
       }
